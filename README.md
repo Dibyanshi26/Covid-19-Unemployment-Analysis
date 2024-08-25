@@ -17,7 +17,7 @@ The dataset used in this project, `unemployment.csv`, contains information about
 - **Region**: Geographical region
 - **Longitude and Latitude**: Coordinates for mapping
 
-## Python Scripts
+# Python Scripts
 
 ### Data Analysis and Visualization
 
@@ -41,7 +41,7 @@ print(data.head())
 print(data.isnull().sum())
 data.columns = ["States", "Date", "Frequency", "Estimated Unemployment Rate", "Estimated Employed", "Estimated Labour Participation Rate", "Region", "longitude", "latitude"]
 
-#Data Visualization
+# Data Visualization
 Several visualizations are created using seaborn and matplotlib:
 
 A correlation heatmap to understand relationships between numerical variables.
@@ -53,7 +53,7 @@ plt.figure(figsize=(12, 10))
 sns.heatmap(data.corr())
 plt.show()
 
-##Interactive Plot with Plotly
+## Interactive Plot with Plotly
 A sunburst chart is generated to visualize the unemployment rate by region and state using Plotly Express.
 
 python
@@ -62,7 +62,7 @@ unemployment = data[["States", "Region", "Estimated Unemployment Rate"]]
 figure = px.sunburst(unemployment, path=["Region", "States"], values="Estimated Unemployment Rate", width=700, height=700, color_continuous_scale="RdY1Gn", title="Unemployment Rate in India")
 figure.show()
 
-##Streamlit Application for Interactive Analysis
+## Streamlit Application for Interactive Analysis
 **Introduction to Streamlit**
 Streamlit is a Python library used to create web apps for data science and machine learning projects. This script sets up a Streamlit app for interactive analysis of the unemployment data.
 
@@ -88,7 +88,7 @@ python
 st.title('Unemployment Analysis in India')
 st.markdown("Explore the unemployment data dynamically by filtering by state, region, and time period.")
 
-##Data Filtering and Visualization##
+## Data Filtering and Visualization##
 The filtered data is displayed as a table. Several interactive visualizations are created using Plotly to show:
 
 - Unemployment Rate over Time
@@ -111,8 +111,8 @@ python
 if st.checkbox("Show Raw Data"):
     st.write(filtered_data)
 
-#Conclusion
+# Conclusion
 The analysis provides a comprehensive view of the unemployment landscape across different states and regions in India. Using the Streamlit app, users can dynamically explore the data, visualize trends over time, and better understand regional differences in unemployment rates.
 
-#Future Work
+# Future Work
 Future work could include integrating more datasets, such as economic indicators or demographic data, to provide a more holistic view of factors influencing unemployment. Additional visualizations and predictive modeling could also be added to enhance the app’s capabilities.
