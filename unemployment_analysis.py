@@ -27,6 +27,7 @@ st.markdown("""### Welcome to the Unemployment Analysis Dashboard
 This interactive application is developed by Dibyanshi Singh. Explore the dynamic changes in unemployment rates across various regions and states of India during the Covid-19 pandemic. Dive into the data and uncover trends through various time periods.
 """)
 # Sidebar filters
+
 st.sidebar.header('Filter Options')
 
 states = st.sidebar.multiselect(
@@ -41,11 +42,20 @@ regions = st.sidebar.multiselect(
     default=data['Region'].unique()
 )
 
+# Set start_date and end_date using min and max from the data
 start_date, end_date = st.sidebar.date_input(
     "Select Date Range",
-    value=[data['Date'].min(), data['Date'].max()],
+    value=[data['Date'].min().date(), data['Date'].max().date()],
     format="YYYY-MM-DD"
 )
+
+# Filter data based on sidebar inputs
+filtered_data = data[
+    (data['States'].isin(states)) &
+    (data['Region'].isin(regions)) &
+    (data['Date'] >= pd.to_datetime(start_date)) &
+    (data['Date'] <= pd.to_datetime(end_date))
+]
 
 # Filter data based on sidebar inputs
 filtered_data = data[
