@@ -78,6 +78,24 @@ fig = px.line(
     title='Estimated Unemployment Rate Over Time'
 )
 st.plotly_chart(fig)
+st.subheader('Geographical View of Unemployment Rate')
+fig_map = px.scatter_geo(
+    filtered_data,
+    lat='Latitude', lon='Longitude',
+    color='Estimated Unemployment Rate',
+    size='Estimated Employed',
+    hover_name='States',
+    projection='natural earth',
+    title='Unemployment Rate Across India'
+)
+st.plotly_chart(fig_map)
+fig = px.line(
+    filtered_data,
+    x='Date', y='Estimated Unemployment Rate',
+    color='States',
+    title='Estimated Unemployment Rate Over Time',
+    animation_frame='Date'
+)
 
 # Employment Distribution
 st.subheader('Estimated Employed by Region')
@@ -98,6 +116,12 @@ fig3 = px.sunburst(
     title='Unemployment Rate by Region and State'
 )
 st.plotly_chart(fig3)
+@st.cache
+def convert_df(df):
+    return df.to_csv(index=False).encode('utf-8')
+
+csv = convert_df(filtered_data)
+st.download_button("Download Filtered Data", data=csv, file_name='filtered_unemployment.csv')
 
 # Display raw data toggle
 if st.checkbox("Show Raw Data"):
