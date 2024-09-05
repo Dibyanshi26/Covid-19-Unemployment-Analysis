@@ -78,6 +78,7 @@ fig = px.line(
     title='Estimated Unemployment Rate Over Time'
 )
 st.plotly_chart(fig)
+
 st.subheader('Geographical View of Unemployment Rate')
 fig_map = px.scatter_geo(
     filtered_data,
@@ -86,16 +87,23 @@ fig_map = px.scatter_geo(
     size='Estimated Employed',
     hover_name='States',
     projection='natural earth',
-    title='Unemployment Rate Across India'
+    title='Unemployment Rate Across India',
 )
+
+# Focus on India by setting the latitude/longitude range or scope
+fig_map.update_geos(
+    scope='asia',  # Limits the map to Asia region
+    resolution=50,
+    showcountries=True,
+    countrycolor="Black",
+    showsubunits=True,
+    subunitcolor="Blue",
+    lonaxis_range=[68, 98],  # Longitude range for India
+    lataxis_range=[6, 38]  # Latitude range for India
+)
+
 st.plotly_chart(fig_map)
-fig = px.line(
-    filtered_data,
-    x='Date', y='Estimated Unemployment Rate',
-    color='States',
-    title='Estimated Unemployment Rate Over Time',
-    animation_frame='Date'
-)
+
 
 # Employment Distribution
 st.subheader('Estimated Employed by Region')
