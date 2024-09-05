@@ -28,6 +28,7 @@ This interactive application is developed by Dibyanshi Singh. Explore the dynami
 """)
 # Sidebar filters
 
+# Sidebar filters
 st.sidebar.header('Filter Options')
 
 states = st.sidebar.multiselect(
@@ -43,19 +44,18 @@ regions = st.sidebar.multiselect(
 )
 
 # Set start_date and end_date using min and max from the data
-start_date, end_date = st.sidebar.date_input(
+date_range = st.sidebar.date_input(
     "Select Date Range",
     value=[data['Date'].min().date(), data['Date'].max().date()],
     format="YYYY-MM-DD"
 )
 
-# Filter data based on sidebar inputs
-filtered_data = data[
-    (data['States'].isin(states)) &
-    (data['Region'].isin(regions)) &
-    (data['Date'] >= pd.to_datetime(start_date)) &
-    (data['Date'] <= pd.to_datetime(end_date))
-]
+# Ensure both dates are selected
+if isinstance(date_range, tuple) and len(date_range) == 2:
+    start_date, end_date = date_range
+else:
+    st.error("Please select a valid date range.")
+    st.stop()
 
 # Filter data based on sidebar inputs
 filtered_data = data[
