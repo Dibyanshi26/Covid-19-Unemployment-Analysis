@@ -23,8 +23,9 @@ data['Date'] = pd.to_datetime(data['Date'], format='%d-%m-%Y')
 # Streamlit App
 
 st.title('Unemployment Analysis in India')
-st.markdown("Explore the unemployment data dynamically by filtering by state, region, and time period.")
-
+st.markdown("""### Welcome to the Unemployment Analysis Dashboard
+This interactive application is developed by Dibyanshi Singh. Explore the dynamic changes in unemployment rates across various regions and states of India during the Covid-19 pandemic. Dive into the data and uncover trends through various time periods.
+""")
 # Sidebar filters
 st.sidebar.header('Filter Options')
 
