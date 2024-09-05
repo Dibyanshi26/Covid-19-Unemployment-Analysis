@@ -79,41 +79,30 @@ fig = px.line(
 )
 st.plotly_chart(fig)
 
-st.subheader('Geographical View of Unemployment Rate')
-fig_map = px.scatter_geo(
-    filtered_data,
-    lat='Latitude', lon='Longitude',
-    color='Estimated Unemployment Rate',
-    size='Estimated Employed',
-    hover_name='States',
-    projection='natural earth',
-    title='Unemployment Rate Across India',
-)
-
-# Focus on India by setting the latitude/longitude range or scope
-fig_map.update_geos(
-    scope='asia',  # Limits the map to Asia region
-    resolution=50,
-    showcountries=True,
-    countrycolor="Black",
-    showsubunits=True,
-    subunitcolor="Blue",
-    lonaxis_range=[68, 98],  # Longitude range for India
-    lataxis_range=[6, 38]  # Latitude range for India
-)
-
-st.plotly_chart(fig_map)
-
-
-# Employment Distribution
+# Employment Distribution with adjustable bins
 st.subheader('Estimated Employed by Region')
+
+# Add a slider to let the user control the number of bins
+bins = st.slider('Number of Bins', min_value=5, max_value=100, value=20)
+
+# Plot the histogram with the selected number of bins
 fig2 = px.histogram(
     filtered_data,
     x='Estimated Employed',
     color='Region',
+    nbins=bins,  # Setting the number of bins dynamically
     title='Estimated Employed Distribution by Region'
 )
+
+# Optionally, you can set range limits for the x-axis (employment numbers)
+fig2.update_layout(
+    xaxis_title='Estimated Employed',
+    yaxis_title='Count',
+    xaxis=dict(range=[filtered_data['Estimated Employed'].min(), filtered_data['Estimated Employed'].max()])
+)
+
 st.plotly_chart(fig2)
+
 
 # Sunburst Chart for Unemployment Rate
 st.subheader('Unemployment Rate by Region and State')
